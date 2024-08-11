@@ -35,6 +35,15 @@ const useTodoStore = create((set) => ({
       ),
     }));
   },
+  delTodo: (id) => {
+    set((state) => ({
+      todos: state.todos.filter((el) => el.id !== id),
+    }));
+  },
+  addTodo: (newTodo) =>
+    set((state) => ({
+      todos: [...state.todos, newTodo],
+    })),
 }));
 
 export default useTodoStore;

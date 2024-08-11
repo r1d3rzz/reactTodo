@@ -2,10 +2,16 @@ import React, { useState } from "react";
 import useTodoStore from "../store/useTodoStore";
 
 const SingleTodo = ({ todo: { id, title, detail, isDone } }) => {
-  const { doneTodo } = useTodoStore();
+  const { doneTodo, delTodo } = useTodoStore();
 
   const doneBtn = () => {
     doneTodo(id);
+  };
+
+  const delBtn = () => {
+    if (confirm("Are you sure?")) {
+      delTodo(id);
+    }
   };
 
   const [isOpen, setOpen] = useState(false);
@@ -43,14 +49,46 @@ const SingleTodo = ({ todo: { id, title, detail, isDone } }) => {
         </div>
         <p className={`text-slate-500 ${isOpen ? null : "hidden"}`}>{detail}</p>
       </div>
-      <div>
+      <div className="gap-2 flex">
         <button
           onClick={doneBtn}
           className={`${
             isDone ? "bg-slate-600" : null
           } bg-green-500 text-white px-2 py-0.5 rounded active:bg-green-700 duration-150`}
         >
-          Done
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="size-4"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="m4.5 12.75 6 6 9-13.5"
+            />
+          </svg>
+        </button>
+        <button
+          onClick={delBtn}
+          className={`bg-red-500 text-white px-2 py-0.5 rounded active:bg-green-700 duration-150`}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="size-4"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M6 18 18 6M6 6l12 12"
+            />
+          </svg>
         </button>
       </div>
     </div>
